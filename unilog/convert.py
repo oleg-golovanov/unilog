@@ -64,27 +64,30 @@ def uniiterable(arg):
     return templates.get(type(arg), templates[tuple]).format(u', '.join(result))
 
 
-def convert(arg):
+def convert(obj, encoding=LOCALE):
     """
     Covert any object to unicode string.
 
-    :param arg: any object
+    :param obj: any object
+    :type encoding: str
+    :param encoding: codec for encoding unicode strings
+                     (locale.getpreferredencoding() by default)
 
     :rtype: unicode
-    :return: mapping object as unicode string
+    :return: any object as unicode string
     """
 
-    if isinstance(arg, unicode):
+    if isinstance(obj, unicode):
         func = lambda x: u"u'{}'".format(x)
-    elif isinstance(arg, str):
-        func = lambda x: u"'{}'".format(x.decode(LOCALE))
-    elif isinstance(arg, (int, float)):
+    elif isinstance(obj, str):
+        func = lambda x: u"'{}'".format(x.decode(encoding))
+    elif isinstance(obj, (int, float)):
         func = lambda x: unicode(x)
-    elif isinstance(arg, collections.Mapping):
+    elif isinstance(obj, collections.Mapping):
         func = unimapping
-    elif isinstance(arg, collections.Iterable):
+    elif isinstance(obj, collections.Iterable):
         func = uniiterable
     else:
         func = lambda x: x
 
-    return func(arg)
+    return func(obj)
