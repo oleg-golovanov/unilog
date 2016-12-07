@@ -25,13 +25,8 @@ def unimapping(arg):
         )
 
     result = []
-    for k, v in arg.items():
-        k = convert(k)
-
-        result.append(u'{}: {}'.format(
-            k,
-            convert(v))
-        )
+    for i in arg.items():
+        result.append(u': '.join(map(convert, i)))
 
     return u'{{{}}}'.format(u', '.join(result))
 
@@ -77,17 +72,18 @@ def convert(obj, encoding=LOCALE):
     :return: any object as unicode string
     """
 
+    func = lambda x: u"u'{}'".format(x)
+
     if isinstance(obj, unicode):
-        func = lambda x: u"u'{}'".format(x)
+        # skip if condition, because unicode is a iterable type
+        pass
     elif isinstance(obj, str):
         func = lambda x: u"'{}'".format(x.decode(encoding))
-    elif isinstance(obj, (int, float)):
+    elif isinstance(obj, (type(None), int, float)):
         func = lambda x: unicode(x)
     elif isinstance(obj, collections.Mapping):
         func = unimapping
     elif isinstance(obj, collections.Iterable):
         func = uniiterable
-    else:
-        func = lambda x: x
 
     return func(obj)
