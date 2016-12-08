@@ -15,40 +15,36 @@ Example
 -------
 .. code-block:: python
 
-    data = [
-        [
-            {
-                'dict1': 'dict1',
-                u'dict12': u'dict12'
-            },
-            [
-                1, 2, 3, 4, 5, None
-            ],
-            (
-                'один', u'два', 'three', u'for', u'пять', None
-            )
+    data = {
+        'date': datetime.date(2016, 12, 6),
+        'datetime': datetime.datetime(2016, 12, 6, 11, 22, 33, 444444),
+        'str': 'item1',
+        'str2': 'пункт2',
+        u'юникод': u'пункт3',
+        'int': 4,
+        'float': 4.44,
+        'bytearray': bytearray([0, 1, 2]),
+        'NoneType': None,
+        'True': True,
+        'False': False,
+        'list': [
+            datetime.date(2016, 12, 6), datetime.datetime(2016, 12, 6, 11, 22, 33, 444444),
+            'item1', 'пункт2', u'пункт3', 4, 4.44, bytearray([0, 1, 2]), None, True, False
         ],
-        (
-            5, 4, 3, 2, 1.11, None
+        'tuple': (
+            datetime.date(2016, 12, 6), datetime.datetime(2016, 12, 6, 11, 22, 33, 444444),
+            'item1', 'пункт2', u'пункт3', 4, 4.44, bytearray([0, 1, 2]), None, True, False
         ),
-        {
-            'list': ['item1', 'item2', u'пункт3'],
-            'tuple': tuple(('значение1', u'значение2', 'значение3')),
-            'dict': {
-                'date': datetime.date(2016, 12, 6),
-                'datetime': datetime.datetime(2016, 12, 6, 11, 22, 33, 444444),
-                'NoneType': None
-            }
-        }
-    ]
+        'generator': (i for i in xrange(3, 6))
+    }
 
     # default python behavior
     >>> print unicode(data)
-    [[{'dict1': 'dict1', u'dict12': u'dict12'}, [1, 2, 3, 4, 5, None], ('\xd0\xbe\xd0\xb4\xd0\xb8\xd0\xbd', u'\u0434\u0432\u0430', 'three', u'for', u'\u043f\u044f\u0442\u044c', None)], (5, 4, 3, 2, 1.11, None), {'dict': {'date': datetime.date(2016, 12, 6), 'NoneType': None, 'datetime': datetime.datetime(2016, 12, 6, 11, 22, 33, 444444)}, 'list': ['item1', 'item2', u'\u043f\u0443\u043d\u043a\u04423'], 'tuple': ('\xd0\xb7\xd0\xbd\xd0\xb0\xd1\x87\xd0\xb5\xd0\xbd\xd0\xb8\xd0\xb51', u'\u0437\u043d\u0430\u0447\u0435\u043d\u0438\u04352', '\xd0\xb7\xd0\xbd\xd0\xb0\xd1\x87\xd0\xb5\xd0\xbd\xd0\xb8\xd0\xb53')}]
+    {'bytearray': bytearray(b'\x00\x01\x02'), 'tuple': (datetime.date(2016, 12, 6), datetime.datetime(2016, 12, 6, 11, 22, 33, 444444), 'item1', '\xd0\xbf\xd1\x83\xd0\xbd\xd0\xba\xd1\x822', u'\u043f\u0443\u043d\u043a\u04423', 4, 4.44, bytearray(b'\x00\x01\x02'), None, True, False), 'int': 4, 'float': 4.44, 'datetime': datetime.datetime(2016, 12, 6, 11, 22, 33, 444444), 'date': datetime.date(2016, 12, 6), 'False': False, 'generator': <generator object <genexpr> at 0x7ff51a58df00>, 'str2': '\xd0\xbf\xd1\x83\xd0\xbd\xd0\xba\xd1\x822', 'list': [datetime.date(2016, 12, 6), datetime.datetime(2016, 12, 6, 11, 22, 33, 444444), 'item1', '\xd0\xbf\xd1\x83\xd0\xbd\xd0\xba\xd1\x822', u'\u043f\u0443\u043d\u043a\u04423', 4, 4.44, bytearray(b'\x00\x01\x02'), None, True, False], 'str': 'item1', u'\u044e\u043d\u0438\u043a\u043e\u0434': u'\u043f\u0443\u043d\u043a\u04423', 'True': True, 'NoneType': None}
 
     # use unilog.as_unicode function
     >>> print unilog.as_unicode(data)
-    [[{'dict1': 'dict1', u'dict12': u'dict12'}, [1, 2, 3, 4, 5, None], ('один', u'два', 'three', u'for', u'пять', None)], (5, 4, 3, 2, 1.11, None), {'dict': {'date': u'2016-12-06', 'NoneType': None, 'datetime': u'2016-12-06 11:22:33.444444'}, 'list': ['item1', 'item2', u'пункт3'], 'tuple': ('значение1', u'значение2', 'значение3')}]
+    {'bytearray': b'\\x00\\x01\\x02', 'tuple': (u'2016-12-06', u'2016-12-06 11:22:33.444444', 'item1', 'пункт2', u'пункт3', 4, 4.44, b'\\x00\\x01\\x02', None, True, False), 'int': 4, 'float': 4.44, 'datetime': u'2016-12-06 11:22:33.444444', 'date': u'2016-12-06', 'False': False, 'generator': (3, 4, 5), 'str2': 'пункт2', 'list': [u'2016-12-06', u'2016-12-06 11:22:33.444444', 'item1', 'пункт2', u'пункт3', 4, 4.44, b'\\x00\\x01\\x02', None, True, False], 'str': 'item1', u'юникод': u'пункт3', 'True': True, 'NoneType': None}
 
 License
 -------
