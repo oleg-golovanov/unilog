@@ -79,6 +79,9 @@ def convert(obj, encoding=LOCALE):
         pass
     elif isinstance(obj, str):
         func = lambda x: u"'{}'".format(x.decode(encoding))
+    elif isinstance(obj, bytearray):
+        # double escape to working ast.literal_eval
+        func = lambda x: u"b'{}'".format(str(x).encode('string-escape').encode('string-escape'))
     elif isinstance(obj, (type(None), int, float)):
         func = lambda x: unicode(x)
     elif isinstance(obj, collections.Mapping):
