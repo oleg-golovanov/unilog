@@ -25,6 +25,8 @@ def unimapping(arg, level):
 
     :type arg: collections.Mapping
     :param arg: mapping object
+    :type level: int
+    :param level: Deep level
 
     :rtype: unicode
     :return: mapping object as unicode string
@@ -48,6 +50,8 @@ def uniiterable(arg, level):
 
     :type arg: collections.Iterable
     :param arg: iterable object
+    :type level: int
+    :param level: Deep level
 
     :rtype: unicode
     :return: iterable object as unicode string
@@ -80,6 +84,8 @@ def convert(obj, level=None, encoding=LOCALE):
     Covert any object to unicode string.
 
     :param obj: any object
+    :type level: int
+    :param level: Deep level. If None level is not considered.
     :type encoding: str
     :param encoding: codec for encoding unicode strings
                      (locale.getpreferredencoding() by default)

@@ -9,6 +9,8 @@ def as_unicode(obj, pretty=False, encoding=convert.LOCALE):
     Representing any object to unicode string.
 
     :param obj: any object
+    :type pretty: bool
+    :param pretty: Pretty print.
     :type encoding: str
     :param encoding: codec for encoding unicode strings
                      (locale.getpreferredencoding() by default)
@@ -25,6 +27,8 @@ def as_str(obj, pretty=False, encoding=convert.LOCALE):
     Representing any object to string.
 
     :param obj: any object
+    :type pretty: bool
+    :param pretty: Pretty print.
     :type encoding: str
     :param encoding: codec for encoding unicode strings
                      (locale.getpreferredencoding() by default)
