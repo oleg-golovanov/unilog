@@ -4,7 +4,7 @@
 import convert
 
 
-def as_unicode(obj, encoding=convert.LOCALE):
+def as_unicode(obj, pretty=False, encoding=convert.LOCALE):
     """
     Representing any object to unicode string.
 
@@ -17,10 +17,10 @@ def as_unicode(obj, encoding=convert.LOCALE):
     :return: any object as unicode string
     """
 
-    return convert.convert(obj, encoding)
+    return convert.convert(obj, 0 if pretty else None, encoding)
 
 
-def as_str(obj, encoding=convert.LOCALE):
+def as_str(obj, pretty=False, encoding=convert.LOCALE):
     """
     Representing any object to string.
 
@@ -33,4 +33,4 @@ def as_str(obj, encoding=convert.LOCALE):
     :return: any object as string
     """
 
-    return as_unicode(obj, encoding).encode(encoding)
+    return as_unicode(obj, pretty, encoding).encode(encoding)
