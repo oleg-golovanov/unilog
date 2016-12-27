@@ -71,6 +71,7 @@ def uniiterable(arg, level):
         spaces = u''
     else:
         spaces = pretty_spaces(level - 1)
+
     templates = {
         list: u'[{0}{1}]'.format(u'{}', spaces),
         tuple: u'({0}{1})'.format(u'{}', spaces),
