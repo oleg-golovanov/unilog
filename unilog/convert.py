@@ -1,22 +1,27 @@
 # -*- coding: utf-8 -*-
 
 
-import collections
+import os
 import locale
+import functools
+import collections
 
 
 LOCALE = locale.getpreferredencoding()
+INDENT = 4
 
-def pretty_spaces (level):
+
+def pretty_spaces(level):
     """
     Return spaces and new line.
 
     :param level: Deep level
     :return: string with new line and spaces
     """
+
     if level is None:
         return u''
-    return u'{}{}'.format (u'\n' if level > 0 else u'', u''.ljust(4 * level))
+    return u'{}{}'.format(os.linesep if level >= 0 else u'', u' ' * (INDENT * level))
 
 
 def unimapping(arg, level):
@@ -39,9 +44,9 @@ def unimapping(arg, level):
 
     result = []
     for i in arg.items():
-        result.append(pretty_spaces (level) + u': '.join(map(convert, i, [level] * len(i))))
+        result.append(pretty_spaces(level) + u': '.join(map(functools.partial(convert, level=level), i)))
 
-    return u'{{{}{}}}'.format(u', '.join(result), u'\n' if level else u'')
+    return u'{{{}{}}}'.format(u', '.join(result), pretty_spaces(level - 1))
 
 
 def uniiterable(arg, level):
@@ -65,30 +70,29 @@ def uniiterable(arg, level):
     if level is None:
         spaces = u''
     else:
-        spaces = pretty_spaces (level - 1)
+        spaces = pretty_spaces(level - 1)
     templates = {
-        list: u'{1}[{0}{1}]'.format(u'{}', spaces),
-        tuple: u'{1}({0}{1})'.format(u'{}', spaces),
+        list: u'[{0}{1}]'.format(u'{}', spaces),
+        tuple: u'({0}{1})'.format(u'{}', spaces),
     }
-
     result = []
-    spaces = pretty_spaces (level)
+    spaces = pretty_spaces(level)
     for i in arg:
-        result.append(u''.join((spaces, convert(i, level))))
+        result.append(u''.join((spaces, convert(i, level=level))))
 
     return templates.get(type(arg), templates[tuple]).format(u', '.join(result))
 
 
-def convert(obj, level=None, encoding=LOCALE):
+def convert(obj, encoding=LOCALE, level=None):
     """
     Covert any object to unicode string.
 
     :param obj: any object
-    :type level: int
-    :param level: Deep level. If None level is not considered.
     :type encoding: str
     :param encoding: codec for encoding unicode strings
                      (locale.getpreferredencoding() by default)
+    :type level: int
+    :param level: Deep level. If None level is not considered.
 
     :rtype: unicode
     :return: any object as unicode string
@@ -112,6 +116,6 @@ def convert(obj, level=None, encoding=LOCALE):
         func = uniiterable
 
     if level is None:
-        return func (obj, None)
+        return func(obj, None)
     else:
         return func(obj, level + 1)
