@@ -46,6 +46,53 @@ Example
     >>> print unilog.as_unicode(data)
     {'bytearray': b'\\x00\\x01\\x02', 'tuple': (u'2016-12-06', u'2016-12-06 11:22:33.444444', 'item1', 'пункт2', u'пункт3', 4, 4.44, b'\\x00\\x01\\x02', None, True, False), 'int': 4, 'float': 4.44, 'datetime': u'2016-12-06 11:22:33.444444', 'date': u'2016-12-06', 'False': False, 'generator': (3, 4, 5), 'str2': 'пункт2', 'list': [u'2016-12-06', u'2016-12-06 11:22:33.444444', 'item1', 'пункт2', u'пункт3', 4, 4.44, b'\\x00\\x01\\x02', None, True, False], 'str': 'item1', u'юникод': u'пункт3', 'True': True, 'NoneType': None}
 
+    # use unilog.as_unicode function with pretty print
+    >>> print unilog.as_unicode(data, pretty=True)
+    {
+        'bytearray': b'\\x00\\x01\\x02',
+        'tuple': (
+            u'2016-12-06',
+            u'2016-12-06 11:22:33.444444',
+            'item1',
+            'пункт2',
+            u'пункт3',
+            4,
+            4.44,
+            b'\\x00\\x01\\x02',
+            None,
+            True,
+            False
+        ),
+        'int': 4,
+        'float': 4.44,
+        'datetime': u'2016-12-06 11:22:33.444444',
+        'date': u'2016-12-06',
+        'False': False,
+        'generator': (
+            3,
+            4,
+            5
+        ),
+        'str2': 'пункт2',
+        'list': [
+            u'2016-12-06',
+            u'2016-12-06 11:22:33.444444',
+            'item1',
+            'пункт2',
+            u'пункт3',
+            4,
+            4.44,
+            b'\\x00\\x01\\x02',
+            None,
+            True,
+            False
+        ],
+        'str': 'item1',
+        u'юникод': u'пункт3',
+        'True': True,
+        'NoneType': None
+    }
+
 License
 -------
 MIT licensed. See the bundled `LICENSE <https://github.com/oleg-golovanov/unilog/blob/master/LICENSE>`_ file for more details.
