@@ -15,13 +15,16 @@ def pretty_spaces(level):
     """
     Return spaces and new line.
 
-    :param level: Deep level
+    :type level: int or None
+    :param level: deep level
+
+    :rtype: unicode
     :return: string with new line and spaces
     """
 
     if level is None:
         return u''
-    return u'{}{}'.format(os.linesep if level >= 0 else u'', u' ' * (INDENT * level))
+    return (os.linesep if level >= 0 else u'') + (u' ' * (INDENT * level))
 
 
 def unimapping(arg, level):
@@ -44,9 +47,15 @@ def unimapping(arg, level):
 
     result = []
     for i in arg.items():
-        result.append(pretty_spaces(level) + u': '.join(map(functools.partial(convert, level=level), i)))
+        result.append(
+            pretty_spaces(level) + u': '.join(map(functools.partial(convert, level=level), i))
+        )
 
-    return u'{{{}{}}}'.format(u', '.join(result), pretty_spaces(level - 1))
+    string = u', '.join(result)
+    if level is not None:
+        string += pretty_spaces(level - 1)
+
+    return u'{{{}}}'.format(string)
 
 
 def uniiterable(arg, level):
@@ -67,21 +76,20 @@ def uniiterable(arg, level):
             'expected collections.Iterable, {} received'.format(type(arg).__name__)
         )
 
-    if level is None:
-        spaces = u''
-    else:
-        spaces = pretty_spaces(level - 1)
-
     templates = {
-        list: u'[{0}{1}]'.format(u'{}', spaces),
-        tuple: u'({0}{1})'.format(u'{}', spaces),
+        list: u'[{}]',
+        tuple: u'({})'
     }
-    result = []
-    spaces = pretty_spaces(level)
-    for i in arg:
-        result.append(u''.join((spaces, convert(i, level=level))))
 
-    return templates.get(type(arg), templates[tuple]).format(u', '.join(result))
+    result = []
+    for i in arg:
+        result.append(pretty_spaces(level) + convert(i, level=level))
+
+    string = u', '.join(result)
+    if level is not None:
+        string += pretty_spaces(level - 1)
+
+    return templates.get(type(arg), templates[tuple]).format(string)
 
 
 def convert(obj, encoding=LOCALE, level=None):
@@ -116,7 +124,7 @@ def convert(obj, encoding=LOCALE, level=None):
     elif isinstance(obj, collections.Iterable):
         func = uniiterable
 
-    if level is None:
-        return func(obj, None)
-    else:
-        return func(obj, level + 1)
+    if level is not None:
+        level += 1
+
+    return func(obj, level)
