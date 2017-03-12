@@ -26,6 +26,7 @@ setup(
     zip_safe=False,
     platforms='any',
     long_description=open(os.path.join(DIR, 'README.rst')).read(),
+    test_suite='tests.tests',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
