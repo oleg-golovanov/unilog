@@ -1,7 +1,7 @@
 unilog
 ------
 
-|Version| |PyVersions| |License|
+|Version| |PyVersions| |Status| |Coverage| |License|
 
 Representing complex object as unicode or simple string.
 
@@ -117,5 +117,9 @@ MIT licensed. See the bundled `LICENSE <https://github.com/oleg-golovanov/unilog
     :target: https://pypi.python.org/pypi/unilog
 .. |PyVersions| image:: https://img.shields.io/pypi/pyversions/unilog.svg
     :target: https://pypi.python.org/pypi/unilog
+.. |Status| image:: https://img.shields.io/travis/oleg-golovanov/unilog.svg
+    :target: https://travis-ci.org/oleg-golovanov/unilog
+.. |Coverage| image:: https://img.shields.io/coveralls/oleg-golovanov/unilog.svg
+    :target: https://coveralls.io/github/oleg-golovanov/unilog
 .. |License| image:: https://img.shields.io/github/license/oleg-golovanov/unilog.svg
     :target: https://github.com/oleg-golovanov/unilog/blob/master/LICENSE
