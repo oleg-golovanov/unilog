@@ -31,20 +31,23 @@ class UniTest(unittest.TestCase):
         )
 
     def test_mapping(self):
+        generator = (i for i in xrange(10))
         self.assertEqual(
             unilog.as_str(
                 {
-                    'generator': (i for i in xrange(3, 6))
+                    'generators': [
+                        generator,
+                        xrange(10)
+                    ]
                 },
                 pretty=True
             ),
-            "{\n"
-            "    'generator': (\n"
-            "        3, \n"
-            "        4, \n"
-            "        5\n"
-            "    )\n"
-            "}"
+            "{{\n"
+            "    'generators': [\n"
+            "        '{!r}', \n"
+            "        'xrange(10)'\n"
+            "    ]\n"
+            "}}".format(generator)
         )
 
     def test_iterable_exception(self):
