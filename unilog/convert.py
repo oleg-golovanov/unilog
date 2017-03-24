@@ -2,6 +2,7 @@
 
 
 import os
+import types
 import locale
 import functools
 import collections
@@ -119,6 +120,8 @@ def convert(obj, encoding=LOCALE, level=None):
         func = lambda x, level: u"b'{}'".format(str(x).encode('string-escape').encode('string-escape'))
     elif isinstance(obj, (type(None), int, float)):
         func = lambda x, level: unicode(x)
+    elif isinstance(obj, (types.GeneratorType, types.XRangeType)):
+        func = lambda x, level: u"'{!r}'".format(x)
     elif isinstance(obj, collections.Mapping):
         func = unimapping
     elif isinstance(obj, collections.Iterable):
