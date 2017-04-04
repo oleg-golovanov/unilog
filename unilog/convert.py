@@ -28,6 +28,22 @@ def pretty_spaces(level):
     return (os.linesep if level >= 0 else u'') + (u' ' * (INDENT * level))
 
 
+def join_strings(strings, level):
+    """
+    Define join symbol by level and join strings.
+    
+    :type strings: collections.Iterable[unicode or str]
+    :param strings: strings to join
+    :type level: int
+    :param level: deep level
+    
+    :rtype: unicode
+    :return: joined string
+    """
+
+    return (u', ' if level is None else u',').join(strings)
+
+
 def unimapping(arg, level):
     """
     Mapping object to unicode string.
@@ -35,7 +51,7 @@ def unimapping(arg, level):
     :type arg: collections.Mapping
     :param arg: mapping object
     :type level: int
-    :param level: Deep level
+    :param level: deep level
 
     :rtype: unicode
     :return: mapping object as unicode string
@@ -52,7 +68,7 @@ def unimapping(arg, level):
             pretty_spaces(level) + u': '.join(map(functools.partial(convert, level=level), i))
         )
 
-    string = u', '.join(result)
+    string = join_strings(result, level)
     if level is not None:
         string += pretty_spaces(level - 1)
 
@@ -66,7 +82,7 @@ def uniiterable(arg, level):
     :type arg: collections.Iterable
     :param arg: iterable object
     :type level: int
-    :param level: Deep level
+    :param level: deep level
 
     :rtype: unicode
     :return: iterable object as unicode string
@@ -86,7 +102,7 @@ def uniiterable(arg, level):
     for i in arg:
         result.append(pretty_spaces(level) + convert(i, level=level))
 
-    string = u', '.join(result)
+    string = join_strings(result, level)
     if level is not None:
         string += pretty_spaces(level - 1)
 
