@@ -44,7 +44,7 @@ class UniTest(unittest.TestCase):
             ),
             "{{\n"
             "    'generators': [\n"
-            "        '{!r}', \n"
+            "        '{!r}',\n"
             "        'xrange(10)'\n"
             "    ]\n"
             "}}".format(generator)
