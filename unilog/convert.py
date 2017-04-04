@@ -12,6 +12,9 @@ LOCALE = locale.getpreferredencoding()
 INDENT = 4
 
 
+CONVERTERS = {}
+
+
 def pretty_spaces(level):
     """
     Return spaces and new line.
@@ -123,6 +126,10 @@ def convert(obj, encoding=LOCALE, level=None):
     :rtype: unicode
     :return: any object as unicode string
     """
+
+    callable_ = CONVERTERS.get(type(obj))
+    if callable_ is not None:
+        obj = callable_(obj)
 
     func = lambda x, level: u"u'{}'".format(x)
 

@@ -38,3 +38,14 @@ def as_str(obj, encoding=convert.LOCALE, pretty=False):
     """
 
     return as_unicode(obj, encoding, pretty).encode(encoding)
+
+
+def register_converter(typename, callable_):
+    """
+    Registers a callable to convert typename instance.
+
+    :param typename: any class
+    :param callable_: any callable object
+    """
+
+    convert.CONVERTERS[typename] = callable_
