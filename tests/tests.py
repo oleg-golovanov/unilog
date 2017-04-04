@@ -7,6 +7,13 @@ import unittest
 import unilog.convert
 
 
+class TestClass(object):
+
+    def __init__(self):
+        self.test1 = 'test1'
+        self.test2 = 2
+
+
 class UniTest(unittest.TestCase):
 
     def test_iterable(self):
@@ -48,6 +55,16 @@ class UniTest(unittest.TestCase):
             "        'xrange(10)'\n"
             "    ]\n"
             "}}".format(generator)
+        )
+
+    def test_register_converter(self):
+        unilog.register_converter(
+            TestClass,
+            lambda x: [x.test1, x.test2]
+        )
+        self.assertEqual(
+            unilog.as_unicode(TestClass()),
+            u"['test1', 2]"
         )
 
     def test_iterable_exception(self):
