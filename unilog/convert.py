@@ -7,6 +7,8 @@ import locale
 import functools
 import collections
 
+from . import compat
+
 
 LOCALE = locale.getpreferredencoding()
 INDENT = 4
@@ -131,19 +133,20 @@ def convert(obj, encoding=LOCALE, level=None):
     if callable_ is not None:
         obj = callable_(obj)
 
-    func = lambda x, level: u"u'{}'".format(x)
+    func = lambda x, level: compat.template.format(x)
 
-    if isinstance(obj, unicode):
+    if isinstance(obj, compat.UnicodeType):
         # skip if condition, because unicode is a iterable type
         pass
     elif isinstance(obj, str):
         func = lambda x, level: u"'{}'".format(x.decode(encoding))
-    elif isinstance(obj, bytearray):
-        # double escape to working ast.literal_eval
-        func = lambda x, level: u"b'{}'".format(str(x).encode('string-escape').encode('string-escape'))
+    elif isinstance(obj, (bytearray, bytes)):
+        func = lambda x, level: u"b'{}'".format(
+            u''.join(u'\\x{:02x}'.format(b) for b in x)
+        )
     elif isinstance(obj, (type(None), int, float)):
-        func = lambda x, level: unicode(x)
-    elif isinstance(obj, (types.GeneratorType, types.XRangeType)):
+        func = lambda x, level: compat.UnicodeType(x)
+    elif isinstance(obj, (types.GeneratorType, compat.XRangeType)):
         func = lambda x, level: u"'{!r}'".format(x)
     elif isinstance(obj, collections.Mapping):
         func = unimapping

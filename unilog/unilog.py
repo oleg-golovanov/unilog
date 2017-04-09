@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-import convert
+from . import convert
 
 
 def as_unicode(obj, encoding=convert.LOCALE, pretty=False):
