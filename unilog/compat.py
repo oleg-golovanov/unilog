@@ -4,14 +4,14 @@
 import sys
 
 
-PY33 = sys.version_info[0:2] >= (3, 3)
+PY3 = sys.version_info.major >= 3
 
 
-template = u"u'{}'"
-UnicodeType = unicode
-XRangeType = xrange
-
-if PY33:
+if PY3:
     template = "'{}'"
-    UnicodeType= str
+    UnicodeType = str
     XRangeType = range
+else:
+    template = u"u'{}'"
+    UnicodeType = unicode
+    XRangeType = xrange

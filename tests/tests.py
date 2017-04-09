@@ -23,7 +23,7 @@ class UniTest(unittest.TestCase):
             'datetime': u"u'2016-12-06 11:22:33.444444'",
             'unicode': u"u'пункт3'"
         }
-        if unilog.compat.PY33:
+        if unilog.compat.PY3:
             values = {k: v.replace('u', '') for k, v in values.items()}
 
         self.assertEqual(
@@ -55,10 +55,10 @@ class UniTest(unittest.TestCase):
             "        '{}'\n"
             "    ]\n"
             "}}".format(
-                generator, 'range(0, 10)' if unilog.compat.PY33 else 'xrange(10)'
+                generator, 'range(0, 10)' if unilog.compat.PY3 else 'xrange(10)'
             )
         )
-        if unilog.compat.PY33:
+        if unilog.compat.PY3:
             result = result.encode(unilog.convert.LOCALE)
 
         self.assertEqual(
