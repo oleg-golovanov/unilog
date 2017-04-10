@@ -2,7 +2,6 @@ language: python
 
 python:
   - 2.7
-  - 3.2
   - 3.3
   - 3.4
   - 3.5
@@ -12,8 +11,7 @@ python:
 
 install:
   - pip install .
-  - if [ "$TRAVIS_PYTHON_VERSION" == "3.2" ]; then pip install coverage==3.7.1; fi
-  - if [ "$TRAVIS_PYTHON_VERSION" != "3.2" ]; then pip install coverage; fi
+  - pip install coverage
   - pip install coveralls
 
 script:
