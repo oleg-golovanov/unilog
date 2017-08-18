@@ -3,7 +3,17 @@ unilog
 
 |Version| |PyVersions| |PyImplementations| |Status| |Coverage| |License|
 
-Representing complex object as unicode or simple string.
+Unilog module aimed at facilitating the development and logging of complex data structures, mainly for python2.7.
+In python3, there is no such pain when printing complex data structures, so python3 support is due to backward
+compatibility with the old code. But for python3, the functionality of registering converters will be useful,
+for printing or logging complex data structures that do not override the __str__ method or need to represent them
+in a different way. The functionality of registering converters is also available for python2.7.
+
+Unilog provides 3 functions (their description can be obtained by the help function):
+
+* as_unicode
+* as_str
+* register_converter
 
 Installation
 ------------
@@ -38,7 +48,7 @@ Example
         'generator': (i for i in xrange(3, 6))
     }
 
-    # default python behavior
+    # default python2.7 behavior
     >>> print unicode(data)
     {'bytearray': bytearray(b'\x00\x01\x02'), 'tuple': (datetime.date(2016, 12, 6),
     datetime.datetime(2016, 12, 6, 11, 22, 33, 444444), 'item1',
