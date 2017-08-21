@@ -3,7 +3,7 @@ unilog
 
 |Version| |PyVersions| |PyImplementations| |Status| |Coverage| |License|
 
-Unilog module aimed at facilitating the development and logging of complex data structures, mainly for python2.7.
+Unilog module aimed at facilitating the development and logging complex data structures, mainly for python2.7.
 In python3, there is no such pain when printing complex data structures, so python3 support is due to backward
 compatibility with the old code. But for python3, the functionality of registering converters will be useful,
 for printing or logging complex data structures that do not override the __str__ method or need to represent them
